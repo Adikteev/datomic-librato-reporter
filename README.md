@@ -1,30 +1,31 @@
-# datomic-riemann-reporter
+# datomic-librato-reporter
 
-A tiny clojure library that reports datomic metrics to riemann
+A tiny clojure library that reports datomic metrics to Librato
 
 ## Usage
 
-Drop an uberjar in $DATOMIC_DIR/lib, then add this to your transactor's `properties` file:
+Add this project as dependency of your project, then setup a callback [as explained in the official doc](http://docs.datomic.com/monitoring.html#sec-2).
+
+If you are working on a Transactor, this is:
 
 ```ini
-metrics-callback=datomic-riemann-reporter/report-datomic-metrics-to-riemann
+metrics-callback=datomic-librato-reporter/report-datomic-metrics-to-librato
+```
+
+If you are working on your own project, this is:
+
+```
+JAVA_OPTS="-Ddatomic.metricsCallback=-Ddatomic.metricsCallback=datomic-librato-reporter/report-datomic-metrics-to-librato"
 ```
 
 Then you need to set these two environment variables:
 
 ```
-RIEMANN_HOST=your_riemann_host
-RIEMANN_PORT=port
+APP_NAME="mysuperapp"
+APP_ENV="production"
+LIBRATO_EMAIL="admin@acme.com"
+LIBRATO_API_TOKEN="…"
 ```
 
-Note you explicitly have to set port - this library doesn't have any defaults built into it.
-
-Then restart your transactor, and you'll see events showing up in riemann. All
-events will be tagged "datomic", and start with "datomic". Event names come
-from the metrics available on http://docs.datomic.com/monitoring.html.
-
-## License
-
-Copyright © 2014 Tom Crayford
-
-Distributed under the Eclipse Public License version 1.0
+Then run your transactor or application, and you'll see events showing up in Librato.
+All events will be tagged `$APP_NAME.datomic.$METRIC_NAME`, and have source set as `$APP_NAME-$APP_ENV.$FQDN`.
