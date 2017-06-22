@@ -27,7 +27,7 @@
 (defn client []
   (if *client*
     *client*
-    (if (and (env :librato-api-token) (env :librato-email))
+    (if (and (env :librato-api-token) (env :librato-email) (env :app-name) (env :app-env))
       (let [initialized (start-librato-reporter (shared-registry "datomic"))]
         (println (str "event=starting-librato-client email=" (env :librato-email) " token=" (env :librato-api-token)))
         (alter-var-root #'*client* (constantly initialized))
