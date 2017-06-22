@@ -15,7 +15,7 @@ metrics-callback=datomic-librato-reporter/report-datomic-metrics-to-librato
 If you are working on your own project, this is:
 
 ```
-JAVA_OPTS="-Ddatomic.metricsCallback=-Ddatomic.metricsCallback=datomic-librato-reporter/report-datomic-metrics-to-librato"
+JAVA_OPTS="-Ddatomic.metricsCallback=datomic-librato-reporter/report-datomic-metrics-to-librato"
 ```
 
 Then you need to set these two environment variables:
