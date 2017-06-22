@@ -1,26 +1,26 @@
 # datomic-librato-reporter
 
-A tiny clojure library that reports datomic metrics to Librato
+A tiny Clojure library that reports Datomic metrics to Librato.
 
 ## Usage
 
 Add this project as dependency of your project, then setup a callback [as explained in the official doc](http://docs.datomic.com/monitoring.html#sec-2).
 
-If you are working on a Transactor, this is:
+That is, if you are working on a Transactor, set the following in your transactor property file:
 
 ```ini
 metrics-callback=datomic-librato-reporter/report-datomic-metrics-to-librato
 ```
 
-If you are working on your own project, this is:
+And if you are working on your own project, use the following Java environment property:
 
-```
+```shell
 JAVA_OPTS="-Ddatomic.metricsCallback=datomic-librato-reporter/report-datomic-metrics-to-librato"
 ```
 
-Then you need to set these two environment variables:
+Then you need to set these environment variables:
 
-```
+```shell
 APP_NAME="mysuperapp"
 APP_ENV="production"
 LIBRATO_EMAIL="admin@acme.com"
